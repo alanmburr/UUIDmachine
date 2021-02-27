@@ -1,0 +1,10 @@
+title: UUIDmahine
+email: wackyblackie-page-feedback@outlook.com
+description: >- # this means to ignore newlines until "baseurl:"
+  UUIDmahine generates a UUID (v4) for you so you don't
+  have a hassle making a UUID! It can be used many ways!
+  Plus, it meets RFC 4122 Standards for UUIDv4.
+baseurl: "/UUIDmachine" # the subpath of your site, e.g. /blog
+url: "/" # the base hostname & protocol for your site, e.g. http://example.com
+github_username:  wackyblackie
+gitlab_username:  wackyblackie
