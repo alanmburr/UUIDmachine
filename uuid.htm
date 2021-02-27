@@ -74,15 +74,6 @@ permalink: /index.html
         document.getElementById("stdout").innerHTML = uuid;
         document.title = uuid;
     }
-    if (location.search == "") {
-        // do nothing
-    } else {
-        let params = new URLSearchParams(document.location.search.substring(1));
-        let st = params.get("sT") || params.get("sTs");
-        let ct = params.get("cT") || params.get("cTs");
-        uuidv4(st, ct);
-        //from: mdn
-    }
     function nodashes_uuidv4(startTag, endTag) {
         function y () {
             return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
@@ -97,6 +88,20 @@ permalink: /index.html
         uid = startTag+uuid+endTag;
         document.getElementById("stdout").innerHTML = uid;
         document.title = uuid;
+    }
+    if (location.search == "") {
+        // do nothing
+    } else {
+        let params = new URLSearchParams(document.location.search.substring(1));
+        let dash = params.get("dashed");
+        let st = params.get("sT") || params.get("sTs");
+        let ct = params.get("cT") || params.get("cTs");
+        if (dash == "true") {
+            uuidv4(st, ct);
+        } else {
+            nodashes_uuidv4(st, ct);
+        }
+        //from: mdn
     }
 </script>
 </div>
