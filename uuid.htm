@@ -1,0 +1,101 @@
+---
+permalink: /uuidmachine/
+---
+<title>UUIDv4</title>
+<link rel="stylesheet" href="https://mdn.github.io/learning-area/html/tables/basic/minimal-table.css">
+<style>#stdout { font-family: serif; } label { font-size: initial; } h3 { font-size: initial; }</style>
+<div id="stdout">
+    <center><h1><strong>UUIDmachine online</strong></h1></center>
+    <div><hr><hr><hr></div>
+    <div>
+        <center>
+            <h2>Regular UUIDgen</h2>
+            <div>
+                <button onclick="uuidv4()">Sans-Brackets</button>
+                <button onclick="uuidv4('{', '}')">Bracketed</button>
+            </div>
+        </center>
+    </div>
+    <hr><hr>
+    <div>
+        <center>
+            <h2>UUID without dashes</h2>
+            <div>
+                <button onclick="nodashes_uuidv4('', '')">Sans-Brackets</button>
+                <button onclick="nodashes_uuidv4('{', '}')">Bracketed</button>
+            </div>
+        </center>
+    </div>
+    <hr><hr>
+    <div>
+        <center>
+            <h2>Make-your-own starting and ending tags</h2>
+            <div>
+                <table>
+                    <tr>
+                        <td>
+                            <center><h3>Sans-dash</h3></center>
+                            <form method="GET" onsubmit="nodashes_uuidv4(String.raw`${document.getElementById('sTs').value}`, String.raw`${document.getElementById('cTs').value}`)">
+                                <label for="sT">Starting container:</label>
+                                <input type="text" name="sTs" minlength="0" maxlength="3" size="2" id="sT">
+                                <label for="cT">Ending container:</label>
+                                <input type="text" name="cTs" minlength="0" maxlength="3" size="2" id="cT">
+                                <input type="submit" value="Genterate">
+                            </form>
+                        </td>
+                        <td>
+                            <center><h3>Dashed</h3></center>
+                            <form method="GET" onsubmit="uuidv4(String.raw`${document.getElementById('sT').vlaue}`, String.raw`${document.getElementById('cT').value}`)">
+                                <label for="sT">Starting container:</label>
+                                <input type="text" name="sT" minlength="0" maxlength="3" size="2" id="sT">
+                                <label for="cT">Ending container:</label>
+                                <input type="text" name="cT" minlength="0" maxlength="3" size="2" id="cT">
+                                <input type="submit" value="Genterate">
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </center>
+    </div>
+<script>
+    // Licensed under the GPLv3 License
+    function uuidv4(startTag, endTag) {
+        function x () {
+            return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+              (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+            );
+            //from: https://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid
+        }
+        startTag = startTag || ''; 
+        endTag = endTag || '';
+        var uuid = startTag+x()+endTag;
+        document.getElementById("stdout").innerHTML = uuid;
+        document.title = uuid;
+    }
+    if (location.search == "") {
+        // do nothing
+    } else {
+        let params = new URLSearchParams(document.location.search.substring(1));
+        let st = params.get("sT") || params.get("sTs");
+        let ct = params.get("cT") || params.get("cTs");
+        uuidv4(st, ct);
+        //from: mdn
+    }
+    function nodashes_uuidv4(startTag, endTag) {
+        function y () {
+            return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+              (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+            );
+            //from: https://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid
+        }
+        startTag = startTag || ''; 
+        endTag = endTag || '';
+        var uuid = String.raw`${y()}`;
+        uuid = uuid.replace(/-/g, '');
+        uid = startTag+uuid+endTag;
+        document.getElementById("stdout").innerHTML = uid;
+        document.title = uuid;
+    }
+</script>
+</div>
