@@ -3,7 +3,7 @@ title: UUIDmachine (UUIDv4)
 slug: /
 permalink: /index.html
 ---
-<!--<title>UUIDv4</title>-->
+<title>UUIDv4</title>
 <link rel="stylesheet" href="https://mdn.github.io/learning-area/html/tables/basic/minimal-table.css">
 <style>#stdout { font-family: serif; } label { font-size: initial; } h3 { font-size: initial; }</style>
 <div id="stdout">
@@ -99,9 +99,11 @@ permalink: /index.html
         let ct = params.get("cT") || params.get("cTs");
         if (dash == "true") {
             uuidv4(st, ct);
-        } else {
+        } else if (dash == "false") {
             nodashes_uuidv4(st, ct);
-        }
+        } else (
+            document.getElementById("stdout").innerHTML = "<center>Problem with parameter dashed: "+dash+". <br>Try <a href='"+location.href.split('?')[0]+"'>resetting</a></center>;
+        )
         //from: mdn
     }
 </script>
