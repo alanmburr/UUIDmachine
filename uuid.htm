@@ -3,7 +3,7 @@ title: UUIDmachine (UUIDv4)
 slug: /
 permalink: /index.html
 ---
-<title>UUIDv4</title>
+<title>UUIDmachine (UUIDv4)</title>
 <link rel="stylesheet" href="https://mdn.github.io/learning-area/html/tables/basic/minimal-table.css">
 <style>#stdout { font-family: serif; } label { font-size: initial; } h3 { font-size: initial; }</style>
 <div id="stdout">
@@ -86,8 +86,8 @@ permalink: /index.html
         endTag = endTag || '';
         var uuid = String.raw`${y()}`;
         uuid = uuid.replace(/-/g, '');
-        uid = startTag+uuid+endTag;
-        document.getElementById("stdout").innerHTML = uid;
+        uuid = startTag+uuid+endTag;
+        document.getElementById("stdout").innerHTML = uuid;
         document.title = uuid;
     }
     if (location.search == "") {
@@ -97,13 +97,16 @@ permalink: /index.html
         let dash = params.get("dashed");
         let st = params.get("sT") || params.get("sTs");
         let ct = params.get("cT") || params.get("cTs");
-        if (dash == "true") {
+        let l = location.href.split("?")[0]
+        if (dash == "true" || dash == "yes") {
             uuidv4(st, ct);
-        } else if (dash == "false") {
+        } else if (dash == "false" || dash == "no") {
             nodashes_uuidv4(st, ct);
-        } else (
-            document.getElementById("stdout").innerHTML = "<center>Problem with parameter dashed: "+dash+". <br>Try <a href='"+location.href.split('?')[0]+"'>resetting</a></center>;
-        )
+        } else {
+            //this is fake json 🤣🤣
+            var myWin = window.open("", "_self", "", true);
+            myWin.document.write("<hr style='color:red'><center><button><a href="+l+">Go Back</a></button></center><div style='position: fixed; bottom: 0px; width: 100%'><pre style='color: red; background-color: yellow;'>{\n    \"error\": {\n        \"parameter\": {\n            \"dashed\": \"" +dash+ "\"\n        },\n        \"url\": {\n            \"problemUrl\": \"<a href="+location.href+">"+location.href+"</a>\",\n            \"href\": \"<a href="+l+">"+l+"</a>\"\n    }\n}</pre></div>");
+        }
         //from: mdn
     }
 </script>
